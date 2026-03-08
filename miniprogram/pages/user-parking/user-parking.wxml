@@ -1,0 +1,114 @@
+<view class="container">
+  <!-- 活跃订单状态栏 -->
+  <view wx:if="{{parkingState === 'navigating'}}" class="active-bar navigating-bar">
+    <text class="bar-title">正在前往：{{currentOrder.spaceTitle}}</text>
+    <text class="bar-addr">{{currentOrder.spaceAddress}}</text>
+    <button class="bar-btn" bindtap="arriveAndStart">已到达，开始计时</button>
+  </view>
+
+  <view wx:if="{{parkingState === 'parking'}}" class="active-bar parking-bar">
+    <text class="bar-title">停车中 - {{currentOrder.spaceTitle}}</text>
+    <text class="timer">{{timerText}}</text>
+    <text class="bar-hint">车位 ¥{{currentOrder.hourlyPrice}}/时 + 小区 ¥{{currentOrder.communityFeePerHour}}/时</text>
+    <button class="bar-btn end-btn" bindtap="endParking">结束计费</button>
+  </view>
+
+  <view wx:if="{{parkingState === 'pendingPay'}}" class="active-bar pay-bar">
+    <text class="bar-title">停车结束</text>
+    <text class="bar-fee">停车 {{currentOrder.parkingMinutes}} 分钟，费用 ¥{{currentOrder.totalFee}}</text>
+    <view class="fee-detail-row">
+      <text>车位费 ¥{{currentOrder.spaceFee}} + 小区费 ¥{{currentOrder.communityTotalFee}} + 平台费 ¥{{currentOrder.platformFee}}</text>
+    </view>
+    <text class="bar-tip">支付成功后，将支付订单展示给门卫即可离开</text>
+    <button class="bar-btn pay-btn" bindtap="goToPay">去支付 ¥{{currentOrder.totalFee}}</button>
+  </view>
+
+  <!-- 车辆信息（idle状态） -->
+  <view wx:if="{{parkingState === 'idle'}}" class="car-form">
+    <view class="form-row">
+      <text class="form-label">车牌号</text>
+      <input class="form-input" placeholder="如：京A12345" value="{{carNumber}}" bindinput="onCarNumberInput" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">联系电话</text>
+      <input class="form-input" type="number" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
+    </view>
+  </view>
+
+  <!-- 位置选择 -->
+  <view wx:if="{{parkingState === 'idle'}}" class="location-bar" bindtap="chooseDestination">
+    <text class="loc-icon">📍</text>
+    <text class="loc-text">{{currentAddress || '点击选择目的地'}}</text>
+    <text class="loc-arrow">></text>
+  </view>
+
+  <!-- 地图 -->
+  <map
+    id="parkingMap"
+    class="parking-map"
+    latitude="{{latitude}}"
+    longitude="{{longitude}}"
+    scale="{{scale}}"
+    markers="{{markers}}"
+    show-location
+    bindmarkertap="onMarkerTap"
+  ></map>
+
+  <!-- 空余车位数量 -->
+  <view wx:if="{{parkingState === 'idle'}}" class="spaces-count">
+    <text>附近空余车位：{{spaces.length}} 个</text>
+  </view>
+
+  <!-- 车位详情弹窗 -->
+  <view wx:if="{{showSpaceDetail && selectedSpace}}" class="mask" bindtap="closeSpaceDetail">
+    <view class="detail-sheet" catchtap="">
+      <view class="sheet-hd">
+        <text class="sheet-title">{{selectedSpace.buildingInfo}}</text>
+        <text class="sheet-close" bindtap="closeSpaceDetail">✕</text>
+      </view>
+      <view class="sheet-bd">
+        <view class="s-row" wx:if="{{selectedSpace.spaceCode}}">
+          <text class="s-label">车位编号</text>
+          <text class="s-val">{{selectedSpace.spaceCode}}</text>
+        </view>
+        <view class="s-row">
+          <text class="s-label">地址</text>
+          <text class="s-val">{{selectedSpace.location.address}}</text>
+        </view>
+        <view class="s-row">
+          <text class="s-label">车位费</text>
+          <text class="s-val highlight">¥{{selectedSpace.hourlyPrice}}/小时</text>
+        </view>
+        <view class="s-row" wx:if="{{selectedSpace.dailyMaxPrice}}">
+          <text class="s-label">每日封顶</text>
+          <text class="s-val">¥{{selectedSpace.dailyMaxPrice}}</text>
+        </view>
+        <view class="s-row">
+          <text class="s-label">小区停车费</text>
+          <text class="s-val">¥{{selectedSpace.communityFee}}/小时</text>
+        </view>
+        <view class="s-row" wx:if="{{selectedSpace.communityFeeDesc}}">
+          <text class="s-label">收费说明</text>
+          <text class="s-val">{{selectedSpace.communityFeeDesc}}</text>
+        </view>
+        <view class="s-row">
+          <text class="s-label">联系电话</text>
+          <text class="s-val">{{selectedSpace.phone}}</text>
+        </view>
+        <view wx:if="{{selectedSpace.photos.length > 0}}" class="s-photos">
+          <text class="s-label">车位照片</text>
+          <scroll-view scroll-x class="photo-scroll">
+            <image wx:for="{{selectedSpace.photos}}" wx:key="*this" class="space-photo" src="{{item}}" mode="aspectFill" />
+          </scroll-view>
+        </view>
+      </view>
+      <button class="nav-btn" bindtap="navigateToSpace">导航前往</button>
+    </view>
+  </view>
+
+  <!-- 帮我停车按钮 -->
+  <view wx:if="{{parkingState === 'idle'}}" class="bottom-float">
+    <button class="valet-btn" bindtap="goToValetOrder">帮我停车</button>
+  </view>
+</view>
+

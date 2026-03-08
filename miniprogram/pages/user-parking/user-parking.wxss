@@ -1,0 +1,58 @@
+.container { display: flex; flex-direction: column; height: 100vh; background: #f5f5f5; }
+
+/* 活跃订单栏 */
+.active-bar { background: #fff; padding: 24rpx 30rpx; border-bottom: 2rpx solid #f0f0f0; }
+.bar-title { font-size: 30rpx; font-weight: bold; color: #333; display: block; margin-bottom: 8rpx; }
+.bar-addr { font-size: 24rpx; color: #999; display: block; margin-bottom: 12rpx; }
+.bar-hint { font-size: 24rpx; color: #999; display: block; margin-bottom: 12rpx; }
+.bar-fee { font-size: 36rpx; font-weight: bold; color: #FF6B6B; display: block; margin: 8rpx 0; }
+.bar-tip { font-size: 22rpx; color: #FF9500; display: block; margin-bottom: 12rpx; }
+.fee-detail-row { font-size: 22rpx; color: #999; margin-bottom: 8rpx; }
+.timer { font-size: 56rpx; font-weight: bold; color: #4A90E2; display: block; text-align: center; margin: 16rpx 0; }
+.bar-btn { width: 100%; height: 80rpx; border-radius: 40rpx; font-size: 30rpx; font-weight: bold; color: #fff; background: linear-gradient(135deg, #4A90E2, #50C878); margin-top: 12rpx; }
+.bar-btn.end-btn { background: linear-gradient(135deg, #FF6B6B, #FF9500); }
+.bar-btn.pay-btn { background: linear-gradient(135deg, #FF6B6B, #FF9500); }
+.bar-btn::after { border: none; }
+
+/* 表单 */
+.car-form { background: #fff; padding: 16rpx 30rpx; }
+.form-row { display: flex; align-items: center; padding: 16rpx 0; border-bottom: 1rpx solid #f5f5f5; }
+.form-label { font-size: 28rpx; color: #333; width: 140rpx; flex-shrink: 0; }
+.form-input { flex: 1; font-size: 28rpx; color: #333; }
+
+/* 位置栏 */
+.location-bar { display: flex; align-items: center; background: #fff; padding: 20rpx 30rpx; border-bottom: 2rpx solid #f0f0f0; }
+.loc-icon { font-size: 32rpx; margin-right: 12rpx; }
+.loc-text { flex: 1; font-size: 28rpx; color: #333; }
+.loc-arrow { font-size: 24rpx; color: #ccc; }
+
+/* 地图 */
+.parking-map { flex: 1; width: 100%; min-height: 500rpx; }
+
+/* 车位数量 */
+.spaces-count { background: #fff; padding: 16rpx 30rpx; font-size: 26rpx; color: #666; text-align: center; }
+
+/* 底部浮动按钮 */
+.bottom-float { position: fixed; bottom: 0; left: 0; right: 0; padding: 20rpx 30rpx; padding-bottom: calc(20rpx + env(safe-area-inset-bottom)); background: #fff; box-shadow: 0 -4rpx 16rpx rgba(0,0,0,0.06); }
+.valet-btn { width: 100%; height: 88rpx; border-radius: 44rpx; font-size: 32rpx; font-weight: bold; color: #fff; background: linear-gradient(135deg, #FF9500, #FF6B6B); }
+.valet-btn::after { border: none; }
+
+/* 弹窗遮罩 */
+.mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; display: flex; align-items: flex-end; }
+
+/* 详情面板 */
+.detail-sheet { width: 100%; max-height: 80vh; background: #fff; border-radius: 30rpx 30rpx 0 0; padding: 30rpx; overflow-y: auto; }
+.sheet-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24rpx; }
+.sheet-title { font-size: 32rpx; font-weight: bold; color: #333; }
+.sheet-close { font-size: 32rpx; color: #999; padding: 10rpx; }
+.sheet-bd { margin-bottom: 24rpx; }
+.s-row { display: flex; justify-content: space-between; padding: 14rpx 0; border-bottom: 1rpx solid #f5f5f5; }
+.s-label { font-size: 26rpx; color: #666; flex-shrink: 0; }
+.s-val { font-size: 26rpx; color: #333; text-align: right; max-width: 60%; }
+.s-val.highlight { color: #FF6B6B; font-weight: bold; }
+.s-photos { margin-top: 16rpx; }
+.photo-scroll { white-space: nowrap; margin-top: 12rpx; }
+.space-photo { width: 200rpx; height: 150rpx; border-radius: 10rpx; margin-right: 12rpx; display: inline-block; }
+.nav-btn { width: 100%; height: 88rpx; border-radius: 44rpx; font-size: 32rpx; font-weight: bold; color: #fff; background: linear-gradient(135deg, #4A90E2, #50C878); }
+.nav-btn::after { border: none; }
+

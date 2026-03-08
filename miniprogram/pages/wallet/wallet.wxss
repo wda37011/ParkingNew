@@ -1,0 +1,26 @@
+.container { display: flex; flex-direction: column; height: 100vh; background: #f5f5f5; }
+
+.balance-card { background: linear-gradient(135deg, #4A90E2, #357ABD); padding: 40rpx 30rpx; text-align: center; }
+.balance-label { font-size: 26rpx; color: rgba(255,255,255,0.8); display: block; }
+.balance-val { font-size: 64rpx; font-weight: bold; color: #fff; display: block; margin: 16rpx 0 24rpx; }
+.withdraw-btn { width: 280rpx; height: 72rpx; border-radius: 36rpx; font-size: 28rpx; font-weight: bold; color: #4A90E2; background: #fff; margin: 0 auto; }
+.withdraw-btn::after { border: none; }
+
+.filter-bar { display: flex; background: #fff; padding: 12rpx 30rpx; gap: 16rpx; }
+.filter-item { flex: 1; text-align: center; font-size: 26rpx; color: #666; padding: 12rpx 0; border-radius: 20rpx; }
+.filter-item.active { color: #4A90E2; font-weight: bold; background: #E8F4FD; }
+
+.tx-list { flex: 1; height: 0; }
+.empty { padding: 160rpx 0; text-align: center; }
+.empty-text { font-size: 28rpx; color: #999; }
+
+.tx-item { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 24rpx 30rpx; border-bottom: 1rpx solid #f5f5f5; }
+.tx-left { flex: 1; }
+.tx-desc { font-size: 28rpx; color: #333; display: block; }
+.tx-meta { display: flex; align-items: center; margin-top: 6rpx; }
+.tx-role { font-size: 22rpx; color: #4A90E2; background: #E8F4FD; padding: 2rpx 10rpx; border-radius: 6rpx; margin-right: 12rpx; }
+.tx-time { font-size: 22rpx; color: #999; }
+.tx-amount { font-size: 32rpx; font-weight: bold; flex-shrink: 0; }
+.tx-amount.income { color: #50C878; }
+.tx-amount.expense { color: #FF6B6B; }
+

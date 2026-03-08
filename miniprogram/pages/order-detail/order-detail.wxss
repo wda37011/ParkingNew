@@ -1,0 +1,374 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F5F5F5;
+}
+
+.scroll-view {
+  flex: 1;
+  height: 0;
+  padding-bottom: 200rpx;
+}
+
+/* 订单状态 */
+.status-section {
+  background: linear-gradient(135deg, #4A90E2, #50C878);
+  padding: 60rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.status-icon {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.status-icon-text {
+  font-size: 60rpx;
+}
+
+.status-text {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.status-desc {
+  font-size: 26rpx;
+  opacity: 0.9;
+}
+
+/* 通用区块 */
+.section {
+  background: #FFFFFF;
+  margin: 20rpx 30rpx;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #F5F5F5;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 20rpx 0;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 500;
+}
+
+.info-value.price {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #FF6B6B;
+}
+
+.info-value.address {
+  font-size: 24rpx;
+  color: #666666;
+  max-width: 60%;
+  text-align: right;
+  word-break: break-all;
+}
+
+/* 车辆信息 */
+.car-info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx;
+  background: #F8F9FA;
+  border-radius: 10rpx;
+}
+
+.car-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #4A90E2;
+  margin-bottom: 10rpx;
+}
+
+.car-detail {
+  font-size: 24rpx;
+  color: #666666;
+}
+
+/* 位置信息 */
+.location-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.location-item {
+  padding: 30rpx;
+  background: #F8F9FA;
+  border-radius: 10rpx;
+}
+
+.location-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.location-icon {
+  font-size: 32rpx;
+  margin-right: 10rpx;
+}
+
+.location-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.location-address {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+  line-height: 1.5;
+}
+
+.location-time {
+  font-size: 24rpx;
+  color: #999999;
+  margin-bottom: 20rpx;
+}
+
+.location-btn {
+  width: 200rpx;
+  height: 60rpx;
+  background: #E8F4FD;
+  color: #4A90E2;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10rpx;
+}
+
+.location-btn::after {
+  border: none;
+}
+
+/* 小哥信息 */
+.worker-info {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+}
+
+.worker-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.worker-detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.worker-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10rpx;
+}
+
+.worker-rating {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.rating-text {
+  font-size: 24rpx;
+  color: #FF9500;
+}
+
+.rating-count {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.contact-btn {
+  width: 160rpx;
+  height: 60rpx;
+  background: #E8F4FD;
+  color: #4A90E2;
+  font-size: 26rpx;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-btn::after {
+  border: none;
+}
+
+/* 备注信息 */
+.remark-text {
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 1.6;
+  padding: 20rpx;
+  background: #F8F9FA;
+  border-radius: 10rpx;
+}
+
+/* 违章信息 */
+.violation-section {
+  border-left: 6rpx solid #FF6B6B;
+}
+
+.violation-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 15rpx 0;
+}
+
+.violation-item:last-child {
+  margin-bottom: 0;
+}
+
+.violation-label {
+  font-size: 28rpx;
+  color: #666666;
+  width: 160rpx;
+  flex-shrink: 0;
+}
+
+.violation-value {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 500;
+}
+
+.violation-value.price {
+  color: #FF6B6B;
+  font-weight: bold;
+}
+
+/* 保障说明 */
+.guarantee-section {
+  background: #E8F4FD;
+  margin: 20rpx 30rpx;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  border-left: 6rpx solid #4A90E2;
+}
+
+.guarantee-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #4A90E2;
+  margin-bottom: 20rpx;
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15rpx;
+}
+
+.guarantee-item:last-child {
+  margin-bottom: 0;
+}
+
+.guarantee-icon {
+  color: #50C878;
+  font-size: 28rpx;
+  margin-right: 15rpx;
+  font-weight: bold;
+}
+
+.guarantee-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* 底部操作栏 */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  padding: 20rpx 30rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  display: flex;
+  gap: 20rpx;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.footer-btn {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-btn::after {
+  border: none;
+}
+
+.cancel-btn {
+  background: #F5F5F5;
+  color: #666666;
+}
+
+.pay-btn {
+  background: linear-gradient(135deg, #4A90E2, #50C878);
+  color: #FFFFFF;
+}
+
+.violation-btn {
+  background: #FFE8E8;
+  color: #FF6B6B;
+}
+

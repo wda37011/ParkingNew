@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="search-bar">
+    <view class="location-box" bindtap="chooseTargetLocation">
+      <text class="location-icon">📍</text>
+      <view class="location-info">
+        <text class="location-title">目的地</text>
+        <text class="location-address">
+          {{targetLocation.address || '请选择您要前往的景区或地点'}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="scroll-view" scroll-y>
+    <view wx:if="{{spaces.length === 0}}" class="empty">
+      <text class="empty-text">请选择目的地后查看附近可用车位</text>
+    </view>
+
+    <view wx:for="{{spaces}}" wx:key="id" class="space-item">
+      <view class="space-main">
+        <view class="space-header">
+          <text class="space-title">{{item.title}}</text>
+          <text class="distance">{{item.distanceText}}</text>
+        </view>
+        <text class="space-address">{{item.location.address}}</text>
+        <view class="space-meta">
+          <text class="price">¥{{item.unitPrice}} / 小时</text>
+          <text class="status">可预定</text>
+        </view>
+        <view wx:if="{{item.description}}" class="space-desc">
+          {{item.description}}
+        </view>
+      </view>
+      <view class="space-actions">
+        <button class="reserve-btn" bindtap="reserveSpace" data-id="{{item.id}}">
+          预定30分钟
+        </button>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+

@@ -1,0 +1,32 @@
+.container { display: flex; flex-direction: column; height: 100vh; background: #f5f5f5; }
+.scroll { flex: 1; height: 0; }
+
+.status-card { background: linear-gradient(135deg, #4A90E2, #50C878); padding: 40rpx 30rpx; display: flex; justify-content: space-between; align-items: center; }
+.status-text { font-size: 34rpx; font-weight: bold; color: #fff; }
+.status-price { font-size: 42rpx; font-weight: bold; color: #fff; }
+
+.section { background: #fff; margin: 16rpx 30rpx; padding: 24rpx; border-radius: 16rpx; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04); }
+.section-title { font-size: 28rpx; font-weight: bold; color: #333; margin-bottom: 16rpx; padding-bottom: 12rpx; border-bottom: 1rpx solid #f5f5f5; }
+.info-row { display: flex; justify-content: space-between; padding: 10rpx 0; }
+.info-label { font-size: 26rpx; color: #666; flex-shrink: 0; }
+.info-val { font-size: 26rpx; color: #333; text-align: right; max-width: 60%; word-break: break-all; }
+.info-val.total { font-weight: bold; color: #FF6B6B; font-size: 30rpx; }
+.fee-total { border-top: 1rpx solid #f0f0f0; padding-top: 12rpx; margin-top: 8rpx; }
+
+.space-item { display: flex; justify-content: space-between; align-items: center; padding: 16rpx 0; border-bottom: 1rpx solid #f5f5f5; }
+.space-info { flex: 1; }
+.space-name { font-size: 26rpx; color: #333; display: block; }
+.space-price { font-size: 22rpx; color: #999; display: block; margin-top: 4rpx; }
+.space-btn { width: 160rpx; height: 60rpx; font-size: 24rpx; color: #fff; background: #4A90E2; border-radius: 30rpx; padding: 0; margin: 0; }
+.space-btn::after { border: none; }
+.self-park-wrap { margin-top: 16rpx; }
+.self-park-btn { width: 100%; height: 68rpx; font-size: 26rpx; color: #4A90E2; background: #E8F4FD; border-radius: 34rpx; }
+.self-park-btn::after { border: none; }
+
+.action-section { padding: 30rpx; }
+.action-btn { width: 100%; height: 88rpx; border-radius: 44rpx; font-size: 32rpx; font-weight: bold; color: #fff; margin-bottom: 16rpx; }
+.action-btn::after { border: none; }
+.accept-btn { background: linear-gradient(135deg, #4A90E2, #50C878); }
+.nav-btn { background: linear-gradient(135deg, #4A90E2, #357ABD); }
+.arrive-btn { background: linear-gradient(135deg, #50C878, #38A55D); }
+

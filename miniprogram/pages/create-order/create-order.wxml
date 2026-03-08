@@ -1,0 +1,113 @@
+<view class="container">
+  <scroll-view class="scroll-view" scroll-y>
+    <!-- 车辆信息 -->
+    <view class="section">
+      <view class="section-title">车辆信息</view>
+      <view class="form-item">
+        <text class="label">车牌号</text>
+        <input class="input" placeholder="请输入车牌号" value="{{carNumber}}" bindinput="onCarNumberInput" />
+      </view>
+      <view class="form-item">
+        <text class="label">车型</text>
+        <input class="input" placeholder="选填，如：大众帕萨特" value="{{carBrand}}" bindinput="onCarBrandInput" />
+      </view>
+      <view class="form-item">
+        <text class="label">车身颜色</text>
+        <input class="input" placeholder="选填，如：白色" value="{{carColor}}" bindinput="onCarColorInput" />
+      </view>
+    </view>
+
+    <!-- 取车位置 -->
+    <view class="section">
+      <view class="section-title">取车位置</view>
+      <view class="location-item" bindtap="choosePickLocation">
+        <view class="location-info">
+          <text class="location-label">当前位置</text>
+          <text class="location-address">{{pickLocation.address || '请选择取车位置'}}</text>
+        </view>
+        <text class="location-icon">📍</text>
+      </view>
+      <view class="form-item">
+        <text class="label">取车时间</text>
+        <picker mode="multiSelector" range="{{timeRange}}" value="{{pickTimeIndex}}" bindchange="onPickTimeChange">
+          <view class="picker-view">
+            <text class="picker-text">{{pickTimeText || '请选择取车时间'}}</text>
+            <text class="picker-arrow">></text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 还车位置 -->
+    <view class="section">
+      <view class="section-title">还车位置</view>
+      <view class="location-item" bindtap="chooseReturnLocation">
+        <view class="location-info">
+          <text class="location-label">还车地点</text>
+          <text class="location-address">{{returnLocation.address || '请选择还车位置'}}</text>
+        </view>
+        <text class="location-icon">📍</text>
+      </view>
+      <view class="form-item">
+        <text class="label">预计还车时间</text>
+        <picker mode="multiSelector" range="{{timeRange}}" value="{{returnTimeIndex}}" bindchange="onReturnTimeChange">
+          <view class="picker-view">
+            <text class="picker-text">{{returnTimeText || '请选择预计还车时间'}}</text>
+            <text class="picker-arrow">></text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="section">
+      <view class="section-title">备注信息</view>
+      <textarea class="textarea" placeholder="选填，如：车辆有特殊注意事项" value="{{remark}}" bindinput="onRemarkInput" maxlength="200"></textarea>
+    </view>
+
+    <!-- 费用说明 -->
+    <view class="section">
+      <view class="section-title">费用说明</view>
+      <view class="price-info">
+        <view class="price-item">
+          <text class="price-label">预计服务总费用</text>
+          <text class="price-value">¥{{price}}</text>
+        </view>
+        <view class="price-desc">
+          基础服务费 + 距离费用 + 时长费用，实际以支付页为准
+        </view>
+        <view class="price-item">
+          <text class="price-label">基础服务费</text>
+          <text>¥{{basePrice}}</text>
+        </view>
+        <view class="price-item">
+          <text class="price-label">距离费用</text>
+        <text>
+          ¥{{distancePrice}}（约{{distanceText}}）
+        </text>
+        </view>
+        <view class="price-item">
+          <text class="price-label">时长费用</text>
+          <text>¥{{timePrice}}（约{{durationHours}}小时）</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 保障说明 -->
+    <view class="guarantee-box">
+      <view class="guarantee-title">服务保障</view>
+      <view class="guarantee-text">✓ 车辆在代停车期间发生违章，30日内由小哥全额赔偿</view>
+      <view class="guarantee-text">✓ 专业小哥，经验丰富，确保车辆安全</view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部提交按钮 -->
+  <view class="footer">
+    <view class="price-summary">
+      <text class="price-label">合计：</text>
+      <text class="price-total">¥{{price}}</text>
+    </view>
+    <button class="submit-btn" bindtap="submitOrder" disabled="{{!canSubmit}}">提交订单</button>
+  </view>
+</view>
+

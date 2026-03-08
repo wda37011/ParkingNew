@@ -1,0 +1,63 @@
+<view class="container">
+  <!-- 顶部标题区 -->
+  <view class="header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <text class="app-name">代易停</text>
+      <text class="app-slogan">景区智慧停车服务平台</text>
+    </view>
+  </view>
+
+  <!-- 三大功能入口 -->
+  <view class="role-cards">
+    <view class="role-card user-card" bindtap="goUserParking">
+      <view class="card-icon-wrap user-icon-bg">
+        <text class="card-icon">🚗</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">我要停车</text>
+        <text class="card-desc">查看附近空余车位，自助停车或代停服务</text>
+      </view>
+      <text class="card-arrow">></text>
+    </view>
+
+    <view class="role-card worker-card" bindtap="goWorkerHome">
+      <view class="card-icon-wrap worker-icon-bg">
+        <text class="card-icon">🧑‍✈️</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">我是代停车小哥</text>
+        <text class="card-desc">接单代停，灵活赚取收入</text>
+      </view>
+      <text class="card-arrow">></text>
+    </view>
+
+    <view class="role-card owner-card" bindtap="goOwnerManage">
+      <view class="card-icon-wrap owner-icon-bg">
+        <text class="card-icon">🏠</text>
+      </view>
+      <view class="card-info">
+        <text class="card-title">我要出租车位</text>
+        <text class="card-desc">闲置车位出租，轻松获取收益</text>
+      </view>
+      <text class="card-arrow">></text>
+    </view>
+  </view>
+
+  <!-- 服务保障 -->
+  <view class="guarantee">
+    <view class="guarantee-title">服务保障</view>
+    <view class="guarantee-item">
+      <text class="guarantee-check">✓</text>
+      <text class="guarantee-text">代停期间违章，30日内小哥全额赔偿</text>
+    </view>
+    <view class="guarantee-item">
+      <text class="guarantee-check">✓</text>
+      <text class="guarantee-text">实时定位跟踪，车辆状态随时掌握</text>
+    </view>
+    <view class="guarantee-item">
+      <text class="guarantee-check">✓</text>
+      <text class="guarantee-text">费用透明，支付安全有保障</text>
+    </view>
+  </view>
+</view>

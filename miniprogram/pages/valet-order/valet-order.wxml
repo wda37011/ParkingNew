@@ -1,0 +1,85 @@
+<view class="container">
+  <scroll-view class="scroll" scroll-y>
+    <!-- 车辆信息 -->
+    <view class="section">
+      <view class="section-title">车辆信息</view>
+      <view class="form-row">
+        <text class="form-label">车牌号</text>
+        <input class="form-input" placeholder="如：京A12345" value="{{carNumber}}" bindinput="onCarNumberInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">联系电话</text>
+        <input class="form-input" type="number" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
+      </view>
+    </view>
+
+    <!-- 取车信息 -->
+    <view class="section">
+      <view class="section-title">取车信息</view>
+      <view class="form-row" bindtap="choosePickLocation">
+        <text class="form-label">取车位置</text>
+        <text class="form-value {{pickLocation.latitude ? '' : 'placeholder'}}">{{pickLocation.address || '点击选择取车位置'}}</text>
+        <text class="form-arrow">></text>
+      </view>
+      <view class="form-row">
+        <text class="form-label">取车时间</text>
+        <picker mode="multiSelector" range="{{timeRange}}" value="{{pickTimeIndex}}" bindchange="onPickTimeChange">
+          <text class="form-value {{pickTimeText ? '' : 'placeholder'}}">{{pickTimeText || '选择取车时间'}}</text>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 还车信息 -->
+    <view class="section">
+      <view class="section-title">还车信息</view>
+      <view class="form-row" bindtap="chooseReturnLocation">
+        <text class="form-label">还车位置</text>
+        <text class="form-value {{returnLocation.latitude ? '' : 'placeholder'}}">{{returnLocation.address || '点击选择还车位置'}}</text>
+        <text class="form-arrow">></text>
+      </view>
+      <view class="form-row">
+        <text class="form-label">还车时间</text>
+        <picker mode="multiSelector" range="{{timeRange}}" value="{{returnTimeIndex}}" bindchange="onReturnTimeChange">
+          <text class="form-value {{returnTimeText ? '' : 'placeholder'}}">{{returnTimeText || '选择还车时间（必选）'}}</text>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="section">
+      <view class="section-title">备注（特殊要求）</view>
+      <textarea class="remark-input" placeholder="如：请勿调节座椅、空调等" value="{{remark}}" bindinput="onRemarkInput" maxlength="200" />
+    </view>
+
+    <!-- 费用明细 -->
+    <view class="section">
+      <view class="section-title">费用明细</view>
+      <view class="fee-row">
+        <text class="fee-label">基础服务费</text>
+        <text class="fee-val">¥{{baseFee}}</text>
+      </view>
+      <view class="fee-row">
+        <text class="fee-label">停车费（¥6/小时 × {{estimatedHours}}时）</text>
+        <text class="fee-val">¥{{parkingFee}}</text>
+      </view>
+      <view class="fee-row" wx:if="{{distanceText}}">
+        <text class="fee-label">距离费用（约{{distanceText}}）</text>
+        <text class="fee-val">¥{{distanceFee}}</text>
+      </view>
+      <view class="fee-total">
+        <text class="fee-total-label">预计费用合计</text>
+        <text class="fee-total-val">¥{{estimatedTotal}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部提交按钮 -->
+  <view class="footer">
+    <view class="footer-price">
+      <text class="fp-label">预估：</text>
+      <text class="fp-val">¥{{estimatedTotal}}</text>
+    </view>
+    <button class="submit-btn" disabled="{{!canSubmit}}" bindtap="submitOrder">提交订单</button>
+  </view>
+</view>
+

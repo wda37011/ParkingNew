@@ -1,0 +1,91 @@
+<view class="container">
+  <scroll-view class="scroll" scroll-y>
+    <!-- 位置信息 -->
+    <view class="section">
+      <view class="section-title">位置信息</view>
+      <view class="form-row">
+        <text class="form-label">楼号单元</text>
+        <input class="form-input" placeholder="如：A区3号楼2单元" value="{{buildingInfo}}" bindinput="onBuildingInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">车位编码</text>
+        <input class="form-input" placeholder="如：B-203（有则填写）" value="{{spaceCode}}" bindinput="onSpaceCodeInput" />
+      </view>
+      <view class="form-row" bindtap="chooseLocation">
+        <text class="form-label">定位位置</text>
+        <text class="form-value {{location.latitude ? '' : 'placeholder'}}">{{location.address || '点击选择位置'}}</text>
+        <text class="form-arrow">></text>
+      </view>
+      <view class="form-row">
+        <text class="form-label">联系电话</text>
+        <input class="form-input" type="number" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
+      </view>
+    </view>
+
+    <!-- 车位照片 -->
+    <view class="section">
+      <view class="section-title">车位照片（含周围参照物，最多5张）</view>
+      <view class="photo-area">
+        <view wx:for="{{photos}}" wx:key="*this" class="photo-item">
+          <image class="photo-img" src="{{item}}" mode="aspectFill" />
+          <text class="photo-del" bindtap="removePhoto" data-idx="{{index}}">✕</text>
+        </view>
+        <view wx:if="{{photos.length < 5}}" class="photo-add" bindtap="choosePhotos">
+          <text class="add-icon">+</text>
+          <text class="add-text">添加</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 价格设置 -->
+    <view class="section">
+      <view class="section-title">价格设置</view>
+      <view class="form-row">
+        <text class="form-label">小时价格</text>
+        <input class="form-input" type="digit" placeholder="如：2" value="{{hourlyPrice}}" bindinput="onHourlyPriceInput" />
+        <text class="form-unit">元/小时</text>
+      </view>
+      <view class="form-row">
+        <text class="form-label">每日封顶</text>
+        <input class="form-input" type="digit" placeholder="选填，如：20" value="{{dailyMaxPrice}}" bindinput="onDailyMaxInput" />
+        <text class="form-unit">元/天</text>
+      </view>
+    </view>
+
+    <!-- 小区收费 -->
+    <view class="section">
+      <view class="section-title">小区社会车辆收费</view>
+      <view class="form-row">
+        <text class="form-label">收费标准</text>
+        <input class="form-input" type="digit" placeholder="如：1" value="{{communityFee}}" bindinput="onCommunityFeeInput" />
+        <text class="form-unit">元/小时</text>
+      </view>
+      <view class="form-row">
+        <text class="form-label">收费说明</text>
+        <input class="form-input" placeholder="选填，如：首小时免费" value="{{communityFeeDesc}}" bindinput="onCommunityDescInput" />
+      </view>
+    </view>
+
+    <!-- 出租时间段 -->
+    <view class="section">
+      <view class="section-title">出租时间段</view>
+      <view class="form-row">
+        <text class="form-label">开始时间</text>
+        <picker mode="date" value="{{availableFromText}}" start="2026-01-01" end="2030-12-31" bindchange="onFromDateChange">
+          <text class="form-value {{availableFromText ? '' : 'placeholder'}}">{{availableFromText || '选择开始日期'}}</text>
+        </picker>
+      </view>
+      <view class="form-row">
+        <text class="form-label">结束时间</text>
+        <picker mode="date" value="{{availableToText}}" start="2026-01-01" end="2030-12-31" bindchange="onToDateChange">
+          <text class="form-value {{availableToText ? '' : 'placeholder'}}">{{availableToText || '选择结束日期'}}</text>
+        </picker>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="footer">
+    <button class="submit-btn" bindtap="submit">保存车位</button>
+  </view>
+</view>
+

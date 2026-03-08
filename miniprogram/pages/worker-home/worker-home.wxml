@@ -1,0 +1,50 @@
+<view class="container">
+  <!-- 顶部信息 -->
+  <view class="header">
+    <view class="header-left">
+      <text class="hi-text">你好，{{workerProfile.name}}</text>
+      <text class="sub-text">已完成 {{workerProfile.completedOrders}} 单</text>
+    </view>
+    <view class="header-right" bindtap="goWallet">
+      <text class="wallet-text">💰 钱包</text>
+    </view>
+  </view>
+
+  <!-- 排序切换 -->
+  <view class="sort-bar">
+    <view class="sort-item {{sortBy === 'distance' ? 'active' : ''}}" bindtap="switchSort" data-sort="distance">距离优先</view>
+    <view class="sort-item {{sortBy === 'time' ? 'active' : ''}}" bindtap="switchSort" data-sort="time">时间优先</view>
+  </view>
+
+  <!-- 订单列表 -->
+  <scroll-view class="order-list" scroll-y>
+    <view wx:if="{{orders.length === 0}}" class="empty">
+      <text class="empty-text">暂无附近待接单</text>
+    </view>
+
+    <view wx:for="{{orders}}" wx:key="id" class="order-card" bindtap="viewDetail" data-id="{{item.id}}">
+      <view class="card-top">
+        <text class="card-price">¥{{item.estimatedTotal}}</text>
+        <text class="card-status {{item.isMine ? 'mine' : ''}}">{{item.statusText}}</text>
+      </view>
+      <view class="card-info">
+        <view class="info-row">
+          <text class="info-icon">📍</text>
+          <text class="info-text">取车：{{item.pickLocation.address}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-icon">🕐</text>
+          <text class="info-text">{{item.pickTimeShort}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.distanceText}}">
+          <text class="info-icon">📏</text>
+          <text class="info-text">距您 {{item.distanceText}}</text>
+        </view>
+      </view>
+      <view class="card-car">
+        <text class="car-num">{{item.carNumber}}</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+

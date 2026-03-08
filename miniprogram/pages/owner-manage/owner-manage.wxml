@@ -1,0 +1,48 @@
+<view class="container">
+  <!-- 收入概览 -->
+  <view class="income-card">
+    <view class="income-info">
+      <text class="income-label">车位出租总收入</text>
+      <text class="income-val">¥{{totalIncome}}</text>
+    </view>
+    <view class="wallet-link" bindtap="goWallet">
+      <text>💰 钱包</text>
+    </view>
+  </view>
+
+  <scroll-view class="scroll" scroll-y>
+    <view wx:if="{{spaces.length === 0}}" class="empty">
+      <text class="empty-text">还没有添加车位</text>
+      <text class="empty-sub">最多可添加10个车位</text>
+    </view>
+
+    <view wx:for="{{spaces}}" wx:key="id" class="space-card">
+      <view class="space-header">
+        <text class="space-title">{{item.buildingInfo}} {{item.spaceCode}}</text>
+        <text class="space-status {{item.isActive ? 'on' : 'off'}}">{{item.isActive ? '出租中' : '已下架'}}</text>
+      </view>
+      <view class="space-body">
+        <text class="space-addr">{{item.location.address}}</text>
+        <view class="space-price-row">
+          <text class="space-price">¥{{item.hourlyPrice}}/小时</text>
+          <text wx:if="{{item.dailyMaxPrice}}" class="space-max">封顶¥{{item.dailyMaxPrice}}/天</text>
+        </view>
+        <text class="space-time">出租时段：{{item.availableFrom}} 至 {{item.availableTo}}</text>
+        <text class="space-community">小区收费：¥{{item.communityFee}}/小时 {{item.communityFeeDesc}}</text>
+        <scroll-view wx:if="{{item.photos.length > 0}}" scroll-x class="photo-row">
+          <image wx:for="{{item.photos}}" wx:for-item="photo" wx:key="*this" class="thumb" src="{{photo}}" mode="aspectFill" />
+        </scroll-view>
+      </view>
+      <view class="space-actions">
+        <button class="s-btn edit" bindtap="editSpace" data-id="{{item.id}}">编辑</button>
+        <button class="s-btn toggle" bindtap="toggleSpace" data-id="{{item.id}}">{{item.isActive ? '下架' : '上架'}}</button>
+        <button class="s-btn del" bindtap="deleteSpace" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="footer">
+    <button class="add-btn" bindtap="addSpace">+ 添加车位（{{spaces.length}}/10）</button>
+  </view>
+</view>
+

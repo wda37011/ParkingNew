@@ -1,0 +1,221 @@
+<view class="container">
+  <scroll-view class="scroll-view" scroll-y>
+    <!-- 订单状态 -->
+    <view class="status-section">
+      <view class="status-icon" style="background: {{statusColor}}">
+        <text class="status-icon-text">{{statusIcon}}</text>
+      </view>
+      <text class="status-text">{{statusText}}</text>
+      <text class="status-desc">{{statusDesc}}</text>
+    </view>
+
+    <!-- ========== 代停车订单详情 ========== -->
+    <block wx:if="{{detailType === 'valet' && valetOrder}}">
+      <!-- 订单信息 -->
+      <view class="section">
+        <view class="section-title">订单信息</view>
+        <view class="info-item">
+          <text class="info-label">订单号</text>
+          <text class="info-value">{{valetOrder.id}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">创建时间</text>
+          <text class="info-value">{{valetOrder.createTimeText}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">预计费用</text>
+          <text class="info-value price">¥{{valetOrder.estimatedTotal}}</text>
+        </view>
+      </view>
+
+      <!-- 车辆信息 -->
+      <view class="section">
+        <view class="section-title">车辆信息</view>
+        <view class="car-info-box">
+          <text class="car-number">{{valetOrder.carNumber}}</text>
+        </view>
+      </view>
+
+      <!-- 位置信息 -->
+      <view class="section">
+        <view class="section-title">位置信息</view>
+        <view class="location-box">
+          <view class="location-item">
+            <view class="location-header">
+              <text class="location-icon">📍</text>
+              <text class="location-title">取车位置</text>
+            </view>
+            <text class="location-address">{{valetOrder.pickLocation.address}}</text>
+            <text class="location-time">取车时间：{{valetOrder.pickTimeText}}</text>
+            <text wx:if="{{valetOrder.pickArriveTimeText}}" class="location-time">小哥到达：{{valetOrder.pickArriveTimeText}}</text>
+            <button class="location-btn" bindtap="openMap" data-type="pick">查看地图</button>
+          </view>
+          <view class="location-item">
+            <view class="location-header">
+              <text class="location-icon">📍</text>
+              <text class="location-title">还车位置</text>
+            </view>
+            <text class="location-address">{{valetOrder.returnLocation.address}}</text>
+            <text class="location-time">预计还车：{{valetOrder.returnTimeText}}</text>
+            <text wx:if="{{valetOrder.returnArriveTimeText}}" class="location-time">小哥到达：{{valetOrder.returnArriveTimeText}}</text>
+            <button class="location-btn" bindtap="openMap" data-type="return">查看地图</button>
+          </view>
+        </view>
+      </view>
+
+      <!-- 费用明细 -->
+      <view class="section">
+        <view class="section-title">费用明细</view>
+        <view class="info-item">
+          <text class="info-label">基础服务费</text>
+          <text class="info-value">¥{{valetOrder.baseFee}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">停车时长费</text>
+          <text class="info-value">¥{{valetOrder.estimatedParkingFee}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">距离费用</text>
+          <text class="info-value">¥{{valetOrder.distanceFee}}</text>
+        </view>
+        <view class="info-item" wx:if="{{valetOrder.actualParkingFee}}">
+          <text class="info-label">实际停车费</text>
+          <text class="info-value">¥{{valetOrder.actualParkingFee}}</text>
+        </view>
+      </view>
+
+      <!-- 备注 -->
+      <view wx:if="{{valetOrder.remark}}" class="section">
+        <view class="section-title">备注信息</view>
+        <text class="remark-text">{{valetOrder.remark}}</text>
+      </view>
+
+      <!-- 保障说明 -->
+      <view class="guarantee-section">
+        <view class="guarantee-title">服务保障</view>
+        <view class="guarantee-item">
+          <text class="guarantee-icon">✓</text>
+          <text class="guarantee-text">代停期间违章，30日内小哥全额赔偿</text>
+        </view>
+        <view class="guarantee-item">
+          <text class="guarantee-icon">✓</text>
+          <text class="guarantee-text">专业小哥，经验丰富，确保车辆安全</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- ========== 自主停车订单详情 ========== -->
+    <block wx:if="{{detailType === 'selfparking' && selfOrder}}">
+      <!-- 停车信息 -->
+      <view class="section">
+        <view class="section-title">停车信息</view>
+        <view class="info-item">
+          <text class="info-label">记录编号</text>
+          <text class="info-value">{{selfOrder.id}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">车牌号</text>
+          <text class="info-value">{{selfOrder.carNumber}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">车位名称</text>
+          <text class="info-value">{{selfOrder.spaceTitle}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">车位地址</text>
+          <text class="info-value address">{{selfOrder.spaceAddress}}</text>
+        </view>
+        <view class="info-item" wx:if="{{space}}">
+          <button class="location-btn" bindtap="openMap" data-type="space">查看地图</button>
+        </view>
+      </view>
+
+      <!-- 时间信息 -->
+      <view class="section">
+        <view class="section-title">时间信息</view>
+        <view class="info-item">
+          <text class="info-label">开始停车</text>
+          <text class="info-value">{{selfOrder.startTimeText}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">结束停车</text>
+          <text class="info-value">{{selfOrder.endTimeText}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">停车时长</text>
+          <text class="info-value">{{selfOrder.durationText}}</text>
+        </view>
+      </view>
+
+      <!-- 费用明细 -->
+      <view class="section" wx:if="{{selfOrder.totalFee}}">
+        <view class="section-title">费用明细</view>
+        <view class="info-item">
+          <text class="info-label">车位费（¥{{selfOrder.hourlyPrice}}/时）</text>
+          <text class="info-value">¥{{selfOrder.spaceFee}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">小区停车费</text>
+          <text class="info-value">¥{{selfOrder.communityTotalFee}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">平台服务费</text>
+          <text class="info-value">¥{{selfOrder.platformFee}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">合计</text>
+          <text class="info-value price">¥{{selfOrder.totalFee}}</text>
+        </view>
+      </view>
+
+      <!-- 提示 -->
+      <view class="guarantee-section">
+        <view class="guarantee-title">温馨提示</view>
+        <view class="guarantee-item">
+          <text class="guarantee-icon">✓</text>
+          <text class="guarantee-text">支付成功后，将订单展示给门卫即可出场</text>
+        </view>
+        <view class="guarantee-item">
+          <text class="guarantee-icon">✓</text>
+          <text class="guarantee-text">费用 = (车位费 + 小区停车费) × 1.2</text>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 底部操作栏 -->
+  <view class="footer">
+    <!-- 代停车：待接单可取消 -->
+    <button
+      wx:if="{{detailType === 'valet' && valetOrder.status === 'pending'}}"
+      class="footer-btn cancel-btn"
+      bindtap="cancelValetOrder"
+    >
+      取消订单
+    </button>
+    <!-- 代停车：已还车待确认 -->
+    <button
+      wx:if="{{detailType === 'valet' && valetOrder.status === 'returned' && !valetOrder.paid}}"
+      class="footer-btn pay-btn"
+      bindtap="confirmReceive"
+    >
+      确认收车并支付
+    </button>
+    <!-- 代停车：已完成可上报违章 -->
+    <button
+      wx:if="{{detailType === 'valet' && valetOrder.status === 'completed'}}"
+      class="footer-btn violation-btn"
+      bindtap="reportViolation"
+    >
+      上报违章
+    </button>
+    <!-- 自主停车：待支付 -->
+    <button
+      wx:if="{{detailType === 'selfparking' && selfOrder.status === 'pending_pay'}}"
+      class="footer-btn pay-btn"
+      bindtap="goToPayment"
+    >
+      立即支付 ¥{{selfOrder.totalFee}}
+    </button>
+  </view>
+</view>

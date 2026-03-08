@@ -1,0 +1,62 @@
+<view class="container">
+  <scroll-view class="scroll" scroll-y wx:if="{{order}}">
+    <!-- 状态 -->
+    <view class="status-card">
+      <text class="status-text">
+        {{order.status === 'pending' ? '待接单' : order.status === 'accepted' ? '已接单' : order.status === 'picking' ? '取车中' : order.status === 'parked' ? '已停车' : order.status === 'returning' ? '还车中' : order.status === 'returned' ? '待车主确认' : order.status === 'completed' ? '已完成' : '已取消'}}
+      </text>
+      <text class="status-price">¥{{order.estimatedTotal}}</text>
+    </view>
+
+    <!-- 车辆信息 -->
+    <view class="section">
+      <view class="section-title">车辆信息</view>
+      <view class="info-row"><text class="info-label">车牌号</text><text class="info-val">{{order.carNumber}}</text></view>
+      <view class="info-row"><text class="info-label">车主电话</text><text class="info-val">{{order.userPhone}}</text></view>
+    </view>
+
+    <!-- 取还车信息 -->
+    <view class="section">
+      <view class="section-title">取还车信息</view>
+      <view class="info-row"><text class="info-label">取车位置</text><text class="info-val">{{order.pickLocation.address}}</text></view>
+      <view class="info-row"><text class="info-label">取车时间</text><text class="info-val">{{order.pickTime}}</text></view>
+      <view class="info-row"><text class="info-label">还车位置</text><text class="info-val">{{order.returnLocation.address}}</text></view>
+      <view class="info-row"><text class="info-label">还车时间</text><text class="info-val">{{order.returnTime}}</text></view>
+      <view class="info-row" wx:if="{{order.remark}}"><text class="info-label">备注</text><text class="info-val">{{order.remark}}</text></view>
+    </view>
+
+    <!-- 费用明细 -->
+    <view class="section">
+      <view class="section-title">费用明细</view>
+      <view class="info-row"><text class="info-label">基础服务费</text><text class="info-val">¥{{order.baseFee}}</text></view>
+      <view class="info-row"><text class="info-label">预估停车费</text><text class="info-val">¥{{order.estimatedParkingFee}}</text></view>
+      <view class="info-row"><text class="info-label">距离费用</text><text class="info-val">¥{{order.distanceFee}}</text></view>
+      <view class="info-row fee-total"><text class="info-label">预计总费用</text><text class="info-val total">¥{{order.estimatedTotal}}</text></view>
+    </view>
+
+    <!-- 附近空余车位（取车后显示） -->
+    <view class="section" wx:if="{{(order.status === 'accepted' || order.status === 'picking') && nearbySpaces.length > 0}}">
+      <view class="section-title">附近空余车位</view>
+      <view wx:for="{{nearbySpaces}}" wx:key="id" class="space-item">
+        <view class="space-info">
+          <text class="space-name">{{item.buildingInfo}} {{item.spaceCode}}</text>
+          <text class="space-price">¥{{item.hourlyPrice}}/时 + 小区¥{{item.communityFee}}/时</text>
+        </view>
+        <button class="space-btn" bindtap="goToSpace" data-idx="{{index}}">前往停车</button>
+      </view>
+      <view class="self-park-wrap">
+        <button class="self-park-btn" bindtap="selfPark">自行选择车位停车</button>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-section">
+      <button wx:if="{{order.status === 'pending'}}" class="action-btn accept-btn" bindtap="acceptOrder">接单</button>
+      <button wx:if="{{order.status === 'accepted'}}" class="action-btn nav-btn" bindtap="startPick">开始取车并导航</button>
+      <button wx:if="{{order.status === 'picking'}}" class="action-btn arrive-btn" bindtap="arrivePick">已到达取车点</button>
+      <button wx:if="{{order.status === 'parked'}}" class="action-btn nav-btn" bindtap="startReturn">开始还车并导航</button>
+      <button wx:if="{{order.status === 'returning'}}" class="action-btn arrive-btn" bindtap="arriveReturn">已到达还车点</button>
+    </view>
+  </scroll-view>
+</view>
+

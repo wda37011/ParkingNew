@@ -1,0 +1,60 @@
+<view class="container">
+  <!-- Tab切换 -->
+  <view class="tabs">
+    <view class="tab {{currentTab === 'self' ? 'active' : ''}}" bindtap="switchTab" data-tab="self">自主停车</view>
+    <view class="tab {{currentTab === 'valet' ? 'active' : ''}}" bindtap="switchTab" data-tab="valet">代停车</view>
+  </view>
+
+  <!-- 自主停车订单 -->
+  <scroll-view wx:if="{{currentTab === 'self'}}" class="order-list" scroll-y>
+    <view wx:if="{{selfOrders.length === 0}}" class="empty">
+      <text class="empty-text">暂无自主停车记录</text>
+      <button class="empty-btn" bindtap="goCreateOrder">去停车</button>
+    </view>
+    <view wx:for="{{selfOrders}}" wx:key="id" class="order-card" bindtap="goToSelfDetail" data-id="{{item.id}}">
+      <view class="card-header">
+        <text class="card-car">{{item.carNumber}}</text>
+        <text class="card-status" style="color:{{item.statusColor}}">{{item.statusText}}</text>
+      </view>
+      <view class="card-body">
+        <text class="card-space">{{item.spaceTitle}}</text>
+        <text class="card-addr">{{item.spaceAddress}}</text>
+      </view>
+      <view class="card-footer">
+        <text class="card-fee">{{item.feeText}}</text>
+        <view class="card-actions">
+          <button wx:if="{{item.status === 'pending_pay'}}" class="act-btn pay" catchtap="goToSelfDetail" data-id="{{item.id}}">去支付</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 代停车订单 -->
+  <scroll-view wx:if="{{currentTab === 'valet'}}" class="order-list" scroll-y>
+    <view wx:if="{{valetOrders.length === 0}}" class="empty">
+      <text class="empty-text">暂无代停车订单</text>
+      <button class="empty-btn" bindtap="goCreateOrder">去下单</button>
+    </view>
+    <view wx:for="{{valetOrders}}" wx:key="id" class="order-card" bindtap="goToValetDetail" data-id="{{item.id}}">
+      <view class="card-header">
+        <text class="card-car">{{item.carNumber}}</text>
+        <text class="card-status" style="color:{{item.statusColor}}">{{item.statusText}}</text>
+      </view>
+      <view class="card-body">
+        <view class="card-loc">
+          <text class="loc-label">取车：</text><text class="loc-val">{{item.pickLocation.address}}</text>
+        </view>
+        <view class="card-loc">
+          <text class="loc-label">还车：</text><text class="loc-val">{{item.returnLocation.address}}</text>
+        </view>
+      </view>
+      <view class="card-footer">
+        <text class="card-fee">{{item.feeText}}</text>
+        <view class="card-actions">
+          <button wx:if="{{item.status === 'pending'}}" class="act-btn cancel" catchtap="cancelValetOrder" data-id="{{item.id}}">取消</button>
+          <button wx:if="{{item.status === 'returned' && !item.paid}}" class="act-btn pay" catchtap="confirmReceive" data-id="{{item.id}}">确认收车</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

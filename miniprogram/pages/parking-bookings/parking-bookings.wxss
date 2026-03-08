@@ -1,0 +1,164 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+.tabs {
+  display: flex;
+  background: #ffffff;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  color: #666666;
+  padding: 20rpx 0;
+  position: relative;
+}
+
+.tab-item.active {
+  color: #4a90e2;
+  font-weight: bold;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background: #4a90e2;
+  border-radius: 2rpx;
+}
+
+.scroll-view {
+  flex: 1;
+  height: 0;
+  padding: 10rpx 0 20rpx;
+}
+
+.empty {
+  padding: 200rpx 60rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999999;
+  text-align: center;
+}
+
+.booking-item {
+  background: #ffffff;
+  margin: 20rpx 30rpx;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.booking-id {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: bold;
+}
+
+.booking-status {
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 30rpx;
+}
+
+.booking-status.reserved {
+  background: #fff5e6;
+  color: #ff9500;
+}
+
+.booking-status.parking {
+  background: #e8f4fd;
+  color: #4a90e2;
+}
+
+.booking-status.completed {
+  background: #e9f7ef;
+  color: #50c878;
+}
+
+.booking-status.cancelled {
+  background: #f5f5f5;
+  color: #999999;
+}
+
+.booking-address {
+  font-size: 26rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.booking-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx 20rpx;
+  margin-top: 6rpx;
+}
+
+.meta-text {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.meta-text.highlight {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.booking-actions {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  height: 70rpx;
+  padding: 0 40rpx;
+  border-radius: 35rpx;
+  font-size: 28rpx;
+  background: linear-gradient(135deg, #4a90e2, #50c878);
+  color: #ffffff;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.pay-btn-action {
+  background: linear-gradient(135deg, #FF6B6B, #FF9500) !important;
+}
+
+.paid-badge {
+  font-size: 26rpx;
+  color: #50C878;
+  font-weight: bold;
+  padding: 8rpx 20rpx;
+}
+
+.unpaid-text {
+  font-size: 24rpx;
+  color: #FF6B6B;
+  margin-right: 16rpx;
+}
+
+

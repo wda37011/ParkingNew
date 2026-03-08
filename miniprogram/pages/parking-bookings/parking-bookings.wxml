@@ -1,0 +1,106 @@
+<view class="container">
+  <view class="tabs">
+    <view
+      class="tab-item {{currentTab === 'all' ? 'active' : ''}}"
+      data-tab="all"
+      bindtap="switchTab"
+    >
+      全部
+    </view>
+    <view
+      class="tab-item {{currentTab === 'reserved' ? 'active' : ''}}"
+      data-tab="reserved"
+      bindtap="switchTab"
+    >
+      已预定
+    </view>
+    <view
+      class="tab-item {{currentTab === 'parking' ? 'active' : ''}}"
+      data-tab="parking"
+      bindtap="switchTab"
+    >
+      停车中
+    </view>
+    <view
+      class="tab-item {{currentTab === 'completed' ? 'active' : ''}}"
+      data-tab="completed"
+      bindtap="switchTab"
+    >
+      已完成
+    </view>
+  </view>
+
+  <scroll-view class="scroll-view" scroll-y>
+    <view wx:if="{{list.length === 0}}" class="empty">
+      <text class="empty-text">暂无相关停车记录</text>
+    </view>
+
+    <view wx:for="{{list}}" wx:key="id" class="booking-item">
+      <view class="booking-header">
+        <text class="booking-id">
+          车位：{{item.space && item.space.title ? item.space.title : '已下架车位'}}
+        </text>
+        <text class="booking-status {{item.statusClass}}">{{item.statusText}}</text>
+      </view>
+      <text class="booking-address">
+        {{item.space && item.space.location ? item.space.location.address : ''}}
+      </text>
+      <view class="booking-meta">
+        <text class="meta-text">单价：¥{{item.unitPrice}} / 小时</text>
+        <text class="meta-text">预定：{{item.reserveTimeText}}</text>
+      </view>
+      <view wx:if="{{item.parkingStartTimeText}}" class="booking-meta">
+        <text class="meta-text">开始：{{item.parkingStartTimeText}}</text>
+      </view>
+      <view wx:if="{{item.parkingEndTimeText}}" class="booking-meta">
+        <text class="meta-text">结束：{{item.parkingEndTimeText}}</text>
+      </view>
+      <view wx:if="{{item.totalFee}}" class="booking-meta">
+        <text class="meta-text">时长：{{item.totalMinutes}} 分钟</text>
+        <text class="meta-text highlight">费用：¥{{item.totalFee}}</text>
+        <text class="meta-text">平台手续费：¥{{item.platformFee}}</text>
+        <text class="meta-text">车位收入：¥{{item.ownerIncome}}</text>
+      </view>
+
+      <view class="booking-actions">
+        <button
+          wx:if="{{item.status === 'reserved'}}"
+          class="action-btn"
+          bindtap="startParking"
+          data-id="{{item.id}}"
+        >
+          开始停车
+        </button>
+        <button
+          wx:if="{{item.status === 'parking' && !item.totalFee}}"
+          class="action-btn"
+          bindtap="endParking"
+          data-id="{{item.id}}"
+        >
+          结束停车
+        </button>
+        <button
+          wx:if="{{item.status === 'parking' && item.totalFee}}"
+          class="action-btn pay-btn-action"
+          bindtap="goToPay"
+          data-id="{{item.id}}"
+        >
+          去支付 ¥{{item.totalFee}}
+        </button>
+        <view wx:if="{{item.status === 'completed' && item.paid}}" class="paid-badge">
+          ✅ 已支付
+        </view>
+        <button
+          wx:if="{{item.status === 'completed' && !item.paid && item.totalFee}}"
+          class="action-btn pay-btn-action"
+          bindtap="goToPay"
+          data-id="{{item.id}}"
+        >
+          待支付 ¥{{item.totalFee}}
+        </button>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+

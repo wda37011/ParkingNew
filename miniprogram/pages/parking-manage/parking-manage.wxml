@@ -1,0 +1,89 @@
+<view class="container">
+  <scroll-view class="scroll-view" scroll-y>
+    <!-- 发布车位按钮 -->
+    <view class="header">
+      <button class="primary-btn" bindtap="onAddSpace">发布车位</button>
+    </view>
+
+    <!-- 车位列表 -->
+    <view wx:if="{{spaces.length > 0}}">
+      <view wx:for="{{spaces}}" wx:key="id" class="space-item">
+        <view class="space-main">
+          <view class="space-title-row">
+            <text class="space-title">{{item.title}}</text>
+            <text class="space-status {{item.isActive ? 'active' : 'inactive'}}">
+              {{item.isActive ? '已上架' : '已下架'}}
+            </text>
+          </view>
+          <text class="space-address">{{item.location.address}}</text>
+          <view class="space-meta">
+            <text class="price">¥{{item.unitPrice}} / 小时</text>
+            <text class="time">发布于：{{item.createTime}}</text>
+          </view>
+        </view>
+        <view class="space-actions">
+          <button class="small-btn" size="mini" bindtap="toggleActive" data-id="{{item.id}}">
+            {{item.isActive ? '下架' : '上架'}}
+          </button>
+          <button class="small-btn secondary" size="mini" bindtap="editSpace" data-id="{{item.id}}">
+            编辑
+          </button>
+          <button class="small-btn danger" size="mini" bindtap="deleteSpace" data-id="{{item.id}}">
+            删除
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{spaces.length === 0}}" class="empty">
+      <text class="empty-text">您还没有发布任何车位</text>
+      <button class="primary-btn" bindtap="onAddSpace">马上发布一个</button>
+    </view>
+  </scroll-view>
+
+  <!-- 新建/编辑车位弹层 -->
+  <view wx:if="{{showForm}}" class="modal-mask" bindtap="closeForm">
+    <view class="modal" catchtap="noop">
+      <view class="modal-title">{{editingSpace ? '编辑车位' : '发布车位'}}</view>
+      <view class="form-item">
+        <text class="label">标题</text>
+        <input class="input" placeholder="例如：XX小区A区-地上车位" value="{{form.title}}" bindinput="onTitleInput" />
+      </view>
+      <view class="form-item" bindtap="chooseLocation">
+        <text class="label">车位位置</text>
+        <view class="location-view">
+          <text class="location-text">
+            {{form.location.address || '请选择车位所在位置'}}
+          </text>
+          <text class="location-icon">📍</text>
+        </view>
+      </view>
+      <view class="form-item">
+        <text class="label">价格</text>
+        <input
+          class="input"
+          type="digit"
+          placeholder="元/小时"
+          value="{{form.unitPrice}}"
+          bindinput="onPriceInput"
+        />
+      </view>
+      <view class="form-item">
+        <text class="label">描述</text>
+        <textarea
+          class="textarea"
+          placeholder="选填，如：车位大小、进出路线、注意事项等"
+          value="{{form.description}}"
+          bindinput="onDescInput"
+        ></textarea>
+      </view>
+      <view class="modal-footer">
+        <button class="footer-btn secondary" bindtap="closeForm">取消</button>
+        <button class="footer-btn primary" bindtap="saveSpace">保存</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+

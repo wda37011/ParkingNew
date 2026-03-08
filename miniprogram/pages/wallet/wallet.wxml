@@ -1,0 +1,35 @@
+<view class="container">
+  <!-- 余额卡 -->
+  <view class="balance-card">
+    <text class="balance-label">账户余额</text>
+    <text class="balance-val">¥{{balance}}</text>
+    <button class="withdraw-btn" bindtap="withdraw">提现到微信</button>
+  </view>
+
+  <!-- 筛选 -->
+  <view class="filter-bar">
+    <view class="filter-item {{filterRole === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-role="all">全部</view>
+    <view class="filter-item {{filterRole === 'user' ? 'active' : ''}}" bindtap="switchFilter" data-role="user">停车</view>
+    <view class="filter-item {{filterRole === 'worker' ? 'active' : ''}}" bindtap="switchFilter" data-role="worker">代停</view>
+    <view class="filter-item {{filterRole === 'owner' ? 'active' : ''}}" bindtap="switchFilter" data-role="owner">出租</view>
+  </view>
+
+  <!-- 交易列表 -->
+  <scroll-view class="tx-list" scroll-y>
+    <view wx:if="{{transactions.length === 0}}" class="empty">
+      <text class="empty-text">暂无交易记录</text>
+    </view>
+
+    <view wx:for="{{transactions}}" wx:key="id" class="tx-item">
+      <view class="tx-left">
+        <text class="tx-desc">{{item.description}}</text>
+        <view class="tx-meta">
+          <text class="tx-role">{{item.roleText}}</text>
+          <text class="tx-time">{{item.timeShort}}</text>
+        </view>
+      </view>
+      <text class="tx-amount {{item.type === 'income' ? 'income' : 'expense'}}">{{item.sign}}¥{{item.amount}}</text>
+    </view>
+  </scroll-view>
+</view>
+

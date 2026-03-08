@@ -1,0 +1,30 @@
+.container { display: flex; flex-direction: column; height: 100vh; background: #f5f5f5; }
+
+.tabs { display: flex; background: #fff; border-bottom: 2rpx solid #f0f0f0; }
+.tab { flex: 1; text-align: center; font-size: 30rpx; color: #666; padding: 24rpx 0; position: relative; }
+.tab.active { color: #4A90E2; font-weight: bold; }
+.tab.active::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60rpx; height: 4rpx; background: #4A90E2; border-radius: 2rpx; }
+
+.order-list { flex: 1; height: 0; }
+.empty { padding: 200rpx 0; text-align: center; }
+.empty-text { font-size: 28rpx; color: #999; display: block; margin-bottom: 24rpx; }
+.empty-btn { width: 200rpx; height: 72rpx; border-radius: 36rpx; font-size: 28rpx; color: #fff; background: linear-gradient(135deg, #4A90E2, #50C878); }
+.empty-btn::after { border: none; }
+
+.order-card { background: #fff; margin: 16rpx 30rpx; padding: 24rpx; border-radius: 16rpx; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04); }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12rpx; }
+.card-car { font-size: 30rpx; font-weight: bold; color: #4A90E2; }
+.card-status { font-size: 26rpx; font-weight: bold; }
+.card-body { margin-bottom: 12rpx; }
+.card-space { font-size: 28rpx; color: #333; display: block; }
+.card-addr { font-size: 24rpx; color: #999; display: block; margin-top: 4rpx; }
+.card-loc { display: flex; font-size: 24rpx; margin-bottom: 4rpx; }
+.loc-label { color: #666; width: 80rpx; flex-shrink: 0; }
+.loc-val { color: #333; flex: 1; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1rpx solid #f5f5f5; padding-top: 12rpx; }
+.card-fee { font-size: 32rpx; font-weight: bold; color: #FF6B6B; }
+.card-actions { display: flex; gap: 12rpx; }
+.act-btn { height: 56rpx; padding: 0 24rpx; font-size: 24rpx; border-radius: 28rpx; }
+.act-btn::after { border: none; }
+.act-btn.pay { background: linear-gradient(135deg, #FF6B6B, #FF9500); color: #fff; }
+.act-btn.cancel { background: #f5f5f5; color: #666; }

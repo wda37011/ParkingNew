@@ -1,0 +1,147 @@
+<view class="container">
+  <scroll-view class="scroll-view" scroll-y>
+
+    <!-- ========== 代停车订单信息 ========== -->
+    <block wx:if="{{payType === 'valet' && valetOrder}}">
+      <view class="section">
+        <view class="section-title">订单信息</view>
+        <view class="info-row">
+          <text class="info-label">订单号</text>
+          <text class="info-value">{{valetOrder.id}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">车牌号</text>
+          <text class="info-value">{{valetOrder.carNumber}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">取车地点</text>
+          <text class="info-value address">{{valetOrder.pickLocation.address}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">还车地点</text>
+          <text class="info-value address">{{valetOrder.returnLocation.address}}</text>
+        </view>
+      </view>
+
+      <!-- 费用明细 -->
+      <view class="section">
+        <view class="section-title">费用明细</view>
+        <view class="fee-row">
+          <text class="fee-label">基础服务费</text>
+          <text class="fee-value">¥{{baseFee}}</text>
+        </view>
+        <view class="fee-row" wx:if="{{distanceText}}">
+          <text class="fee-label">距离费用（约{{distanceText}}）</text>
+          <text class="fee-value">¥{{distanceFee}}</text>
+        </view>
+        <view class="fee-row" wx:if="{{durationHours}}">
+          <text class="fee-label">停车时长费（约{{durationHours}}小时×6元）</text>
+          <text class="fee-value">¥{{parkingFee}}</text>
+        </view>
+        <view class="fee-divider"></view>
+        <view class="fee-total-row">
+          <text class="fee-total-label">合计</text>
+          <text class="fee-total-value">¥{{amountText}}</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- ========== 自主停车信息 ========== -->
+    <block wx:if="{{payType === 'selfparking' && selfOrder}}">
+      <view class="section">
+        <view class="section-title">停车信息</view>
+        <view class="info-row">
+          <text class="info-label">记录编号</text>
+          <text class="info-value">{{selfOrder.id}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">车牌号</text>
+          <text class="info-value">{{selfOrder.carNumber}}</text>
+        </view>
+        <view class="info-row" wx:if="{{selfOrder.spaceTitle}}">
+          <text class="info-label">车位名称</text>
+          <text class="info-value">{{selfOrder.spaceTitle}}</text>
+        </view>
+        <view class="info-row" wx:if="{{selfOrder.spaceAddress}}">
+          <text class="info-label">车位位置</text>
+          <text class="info-value address">{{selfOrder.spaceAddress}}</text>
+        </view>
+      </view>
+
+      <!-- 费用明细 -->
+      <view class="section">
+        <view class="section-title">费用明细</view>
+        <view class="fee-row">
+          <text class="fee-label">停车时长</text>
+          <text class="fee-value">{{parkingHoursText}}</text>
+        </view>
+        <view class="fee-row">
+          <text class="fee-label">车位费（¥{{selfOrder.hourlyPrice}}/时）</text>
+          <text class="fee-value">¥{{spaceFee}}</text>
+        </view>
+        <view class="fee-row">
+          <text class="fee-label">小区停车费（¥{{selfOrder.communityFeePerHour}}/时）</text>
+          <text class="fee-value">¥{{communityTotalFee}}</text>
+        </view>
+        <view class="fee-row">
+          <text class="fee-label">平台服务费（×1.2）</text>
+          <text class="fee-value">¥{{platformFee}}</text>
+        </view>
+        <view class="fee-divider"></view>
+        <view class="fee-row sub">
+          <text class="fee-label">其中车位主收入</text>
+          <text class="fee-value">¥{{ownerIncome}}</text>
+        </view>
+        <view class="fee-divider"></view>
+        <view class="fee-total-row">
+          <text class="fee-total-label">应付金额</text>
+          <text class="fee-total-value">¥{{amountText}}</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- ========== 支付方式 ========== -->
+    <view class="section">
+      <view class="section-title">支付方式</view>
+      <view class="payment-methods">
+        <view
+          class="payment-item {{paymentMethod === 'wechat' ? 'active' : ''}}"
+          bindtap="selectPaymentMethod"
+          data-method="wechat"
+        >
+          <view class="payment-icon">💳</view>
+          <text class="payment-name">微信支付</text>
+          <view class="payment-check" wx:if="{{paymentMethod === 'wechat'}}">
+            <text class="check-icon">✓</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- ========== 支付说明 ========== -->
+    <view class="notice-section">
+      <view class="notice-title">支付说明</view>
+      <view class="notice-item">• 支付完成后，订单将自动完成</view>
+      <view class="notice-item" wx:if="{{payType === 'valet'}}">• 代停期间若发生违章，小哥将在30日内全额赔偿</view>
+      <view class="notice-item" wx:if="{{payType === 'selfparking'}}">• 平台收取20%服务费，其余归车位持有人</view>
+      <view class="notice-item">• 支付成功后可将订单展示给门卫出场</view>
+      <view class="notice-item">• 如有疑问，请联系客服</view>
+    </view>
+
+  </scroll-view>
+
+  <!-- ========== 底部支付栏 ========== -->
+  <view class="footer">
+    <view class="price-summary">
+      <text class="price-label">合计：</text>
+      <text class="price-total">¥{{amountText}}</text>
+    </view>
+    <button
+      class="pay-btn"
+      bindtap="confirmPayment"
+      disabled="{{loading}}"
+    >
+      {{loading ? '支付中...' : '确认支付'}}
+    </button>
+  </view>
+</view>

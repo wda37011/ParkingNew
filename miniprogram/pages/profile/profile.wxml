@@ -1,0 +1,81 @@
+<view class="container">
+  <scroll-view class="scroll-view" scroll-y>
+    <!-- 用户信息 -->
+    <view class="user-section">
+      <view class="user-info" wx:if="{{userInfo}}">
+        <image class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+        <view class="user-detail">
+          <text class="user-name">{{userInfo.nickName}}</text>
+          <view class="user-tags">
+            <text class="tag">停车用户</text>
+            <text wx:if="{{isWorker}}" class="tag worker-tag">代停小哥</text>
+            <text wx:if="{{isOwner}}" class="tag owner-tag">车位业主</text>
+          </view>
+        </view>
+      </view>
+      <view class="login-prompt" wx:else>
+        <button class="login-btn" bindtap="handleLogin">点击登录</button>
+      </view>
+    </view>
+
+    <!-- 钱包概览 -->
+    <view class="wallet-card" bindtap="goWallet">
+      <view class="wallet-left">
+        <text class="wallet-label">💰 我的钱包</text>
+        <text class="wallet-balance">¥{{balance}}</text>
+      </view>
+      <text class="wallet-arrow">></text>
+    </view>
+
+    <!-- 功能菜单 -->
+    <view class="menu-section">
+      <view class="menu-item" bindtap="goOrders">
+        <view class="menu-icon">📋</view>
+        <text class="menu-text">我的订单</text>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item" bindtap="goWorkerHome">
+        <view class="menu-icon">🧑‍✈️</view>
+        <text class="menu-text">代停车接单</text>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item" bindtap="goOwnerManage">
+        <view class="menu-icon">🏠</view>
+        <text class="menu-text">我的车位</text>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item" bindtap="goWallet">
+        <view class="menu-icon">💰</view>
+        <text class="menu-text">钱包明细</text>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item" bindtap="contactService">
+        <view class="menu-icon">📞</view>
+        <text class="menu-text">联系客服</text>
+        <text class="menu-arrow">></text>
+      </view>
+      <view class="menu-item" bindtap="aboutUs">
+        <view class="menu-icon">ℹ️</view>
+        <text class="menu-text">关于代易停</text>
+        <text class="menu-arrow">></text>
+      </view>
+    </view>
+
+    <!-- 服务保障 -->
+    <view class="guarantee-section">
+      <view class="guarantee-title">服务保障</view>
+      <view class="guarantee-item">
+        <text class="guarantee-icon">✓</text>
+        <text class="guarantee-text">代停期间违章，30日内小哥全额赔偿</text>
+      </view>
+      <view class="guarantee-item">
+        <text class="guarantee-icon">✓</text>
+        <text class="guarantee-text">同一账户多角色，收入统一管理</text>
+      </view>
+      <view class="guarantee-item">
+        <text class="guarantee-icon">✓</text>
+        <text class="guarantee-text">支持提现到微信零钱</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
